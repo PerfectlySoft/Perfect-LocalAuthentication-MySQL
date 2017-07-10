@@ -75,11 +75,28 @@ public class Account: MySQLStORM {
 		}
 	}
 
+	public func isUnique() throws {
+		// checks for email address already existing
+		let this = Account()
+		do {
+			try this.find(["email":email])
+			if this.results.cursorData.totalRecords > 0 {
+				//				print("failing unique test")
+				throw OAuth2ServerError.invalidEmail
+			}
+		} catch {
+			//			print(error)
+			throw OAuth2ServerError.invalidEmail
+		}
+	}
+
 	// Register User
 	public static func register(_ u: String, _ e: String, _ ut: AccountType = .provisional, baseURL: String) -> OAuth2ServerError {
 		let r = URandom()
 		let acc = Account(r.secureToken, u, "", e, ut)
 		do {
+			try acc.isUnique()
+			//			print("passed unique test")
 			try acc.create()
 		} catch {
 			print(error)
@@ -166,3 +183,4 @@ public enum AccountType {
 		}
 	}
 }
+
