@@ -17,11 +17,11 @@ public func initializeSchema(_ fname: String = "./config/ApplicationConfiguratio
 		let dict = config.getValues()!
 		opts["httpPort"] = dict["httpport"] as! Int
 		// StORM Connector Config
-		MySQLConnector.host        = dict["postgreshost"] as? String ?? ""
-		MySQLConnector.username    = dict["postgresuser"] as? String ?? ""
-		MySQLConnector.password    = dict["postgrespwd"] as? String ?? ""
-		MySQLConnector.database    = dict["postgresdbname"] as? String ?? ""
-		MySQLConnector.port        = dict["postgresport"] as? Int ?? 0
+		MySQLConnector.host        = dict["mysqlhost"] as? String ?? ""
+		MySQLConnector.username    = dict["mysqluser"] as? String ?? ""
+		MySQLConnector.password    = dict["mysqlpwd"] as? String ?? ""
+		MySQLConnector.database    = dict["mysqldbname"] as? String ?? ""
+		MySQLConnector.port        = dict["mysqlport"] as? Int ?? 0
 
 		// Outbound email config
 		SMTPConfig.mailserver         = dict["mailserver"] as? String ?? ""
@@ -48,11 +48,11 @@ public func initializeSchema(_ fname: String = "./config/ApplicationConfiguratio
 		MySQLConnector.username    = "perfect"
 		MySQLConnector.password    = "perfect"
 		MySQLConnector.database    = "perfect_testing"
-		MySQLConnector.port        = 5432
-		
+		MySQLConnector.port        = 3306
+
 	}
 
-//	StORMdebug = true
+	//	StORMdebug = true
 
 	// Account
 	let a = Account()
@@ -69,3 +69,4 @@ public func initializeSchema(_ fname: String = "./config/ApplicationConfiguratio
 
 	return opts
 }
+
