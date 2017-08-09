@@ -21,6 +21,12 @@ public func mainAuthenticationRoutes() -> [[String: Any]] {
 	routes.append(["method":"post", "uri":"/register", "handler":LocalAuthWebHandlers.registerPost])
 	routes.append(["method":"get", "uri":"/verifyAccount/{passvalidation}", "handler":LocalAuthWebHandlers.registerVerify])
 	routes.append(["method":"post", "uri":"/registrationCompletion", "handler":LocalAuthWebHandlers.registerCompletion])
+    
+    routes.append(["method":"get", "uri":"/resetPass", "handler":LocalAuthWebHandlers.resetPassword])
+    routes.append(["method":"post", "uri":"/resetPass", "handler":LocalAuthWebHandlers.resetPasswordPost])
+    routes.append(["method":"get", "uri":"/verifyPassReset/{passreset}", "handler":LocalAuthWebHandlers.resetPasswordVerify])
+    routes.append(["method":"post", "uri":"/resetPasswordComplete", "handler":LocalAuthWebHandlers.resetPasswordCompletion])
+
 
 	/// Loads current session & csrf for headers
 	routes.append(["method":"get", "uri":"/api/v1/session", "handler":LocalAuthJSONHandlers.session])
@@ -34,8 +40,6 @@ public func mainAuthenticationRoutes() -> [[String: Any]] {
 	routes.append(["method":"post", "uri":"/api/v1/login", "handler":LocalAuthJSONHandlers.login])
 	/// Change Password post route
 	routes.append(["method":"post", "uri":"/api/v1/changepassword", "handler":LocalAuthJSONHandlers.changePassword])
-
-
 
 //	routes.append(["method":"get", "uri":"/**", "handler":PerfectHTTPServer.HTTPHandler.staticFiles,
 //	               "documentRoot":"./webroot",
