@@ -54,23 +54,18 @@ public func initializeSchema(_ fname: String = "./config/ApplicationConfiguratio
 
 	//	StORMdebug = true
 
+	MySQLConnector.quiet = true
+	
 	// Account
-	let a = Account()
-	try? a.setup()
-
-	// Account migrations:
-	// 1.3.1->1.4
-	try? a.sql("ALTER TABLE account ADD COLUMN `source` text AFTER `passvalidation`;", params: [])
-	try? a.sql("ALTER TABLE account ADD COLUMN `remoteid` text AFTER `source`;", params: [])
-
+	Account.setup()
 
 	// Application
-	let app = Application()
-	try? app.setup()
+	Application.setup()
 
 	// Access Token
-	let at = AccessToken()
-	try? at.setup()
+	AccessToken.setup()
+
+	MySQLConnector.quiet = false
 
 
 	return opts

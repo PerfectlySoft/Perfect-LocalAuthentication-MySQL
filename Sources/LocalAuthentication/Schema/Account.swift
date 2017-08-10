@@ -25,6 +25,24 @@ public class Account: MySQLStORM {
 
 	let _r = URandom()
 
+	public static func setup(_ str: String = "") {
+		do {
+			let obj = Account()
+			try obj.setup(str)
+
+			// Account migrations:
+			// 1.3.1->1.4
+			let _ = try? obj.sql("ALTER TABLE account ADD COLUMN `source` text AFTER `passvalidation`;", params: [])
+			let _ = try? obj.sql("ALTER TABLE account ADD COLUMN `remoteid` text AFTER `source`;", params: [])
+			let _ = try? obj.sql("ALTER TABLE account ADD COLUMN `passvalidation` text;", params: [])
+			let _ = try? obj.sql("ALTER TABLE account ADD COLUMN `passreset` text;", params: [])
+
+		} catch {
+			// nothing
+		}
+	}
+
+
 	override public func to(_ this: StORMRow) {
 		id              = this.data["id"] as? String				?? ""
 		username		= this.data["username"] as? String			?? ""
