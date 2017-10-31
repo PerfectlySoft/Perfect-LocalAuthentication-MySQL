@@ -78,7 +78,7 @@ baseURL = opts["baseURL"] as? String ?? baseURL
 
 否则，请使用下列函数完成等价的配置：
 
-* MySQL: [https://github.com/PerfectlySoft/Perfect-LocalAuthentication-MySQL/blob/master/Sources/LocalAuthentication/Schema/InitializeSchema.swift](https://github.com/PerfectlySoft/Perfect-LocalAuthentication-MySQL/blob/master/Sources/LocalAuthentication/Schema/InitializeSchema.swift)
+* MySQL: [https://github.com/PerfectlySoft/Perfect-LocalAuthentication-MySQL/blob/master/Sources/PerfectLocalAuthentication/Schema/InitializeSchema.swift](https://github.com/PerfectlySoft/Perfect-LocalAuthentication-MySQL/blob/master/Sources/PerfectLocalAuthentication/Schema/InitializeSchema.swift)
 
 ### 设置会话数据库驱动
 

@@ -89,7 +89,7 @@ httpPort = opts["httpPort"] as? Int ?? httpPort
 baseURL = opts["baseURL"] as? String ?? baseURL
 ```
 
-Otherwise, these will need to be set equivalent to this function [https://github.com/PerfectlySoft/Perfect-LocalAuthentication-MySQL/blob/master/Sources/LocalAuthentication/Schema/InitializeSchema.swift](https://github.com/PerfectlySoft/Perfect-LocalAuthentication-MySQL/blob/master/Sources/LocalAuthentication/Schema/InitializeSchema.swift).
+Otherwise, these will need to be set equivalent to this function [https://github.com/PerfectlySoft/Perfect-LocalAuthentication-MySQL/blob/master/Sources/PerfectLocalAuthentication/Schema/InitializeSchema.swift](https://github.com/PerfectlySoft/Perfect-LocalAuthentication-MySQL/blob/master/Sources/PerfectLocalAuthentication/Schema/InitializeSchema.swift).
 
 Set the session driver:
 
