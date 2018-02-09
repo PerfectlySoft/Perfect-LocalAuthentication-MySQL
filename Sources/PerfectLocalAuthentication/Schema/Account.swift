@@ -8,7 +8,6 @@
 
 import StORM
 import MySQLStORM
-import SwiftRandom
 import PerfectSMTP
 
 public class Account: MySQLStORM {
@@ -22,8 +21,6 @@ public class Account: MySQLStORM {
 	public var passvalidation = ""
     public var passreset      = ""
 	public var detail	      = [String:Any]()
-
-	let _r = URandom()
 
 	public static func setup(_ str: String = "") {
 		do {
@@ -88,8 +85,8 @@ public class Account: MySQLStORM {
 		password = p
 		email = e
 		usertype = ut
-		passvalidation = _r.secureToken
-        passreset = _r.secureToken
+		passvalidation = AccessToken.generate()
+        passreset = AccessToken.generate()
 		source = s
 		remoteid = rid
 	}
@@ -105,7 +102,7 @@ public class Account: MySQLStORM {
     }
 
 	public func makeID() {
-		id = _r.secureToken
+		id = AccessToken.generate()
 	}
 
 	public func makePassword(_ p1: String) {
@@ -133,8 +130,7 @@ public class Account: MySQLStORM {
 
 	// Register User
 	public static func register(_ u: String, _ e: String, _ ut: AccountType = .provisional, baseURL: String) -> OAuth2ServerError {
-		let r = URandom()
-		let acc = Account(r.secureToken, u, "", e, ut)
+		let acc = Account(AccessToken.generate(), u, "", e, ut)
 		do {
 			try acc.isUnique()
 			// print("passed unique test")
@@ -160,11 +156,10 @@ public class Account: MySQLStORM {
     /// - Parameter e: email address
     /// - Parameter baseURL: base url to create the reset pass url
     public static func resetPassword(_ e: String, baseURL: String) -> OAuth2ServerError {
-        let r = URandom()
         let acc = Account()
         do {
             try acc.find(["email": e])
-            acc.passreset = r.secureToken
+            acc.passreset = AccessToken.generate()
             acc.email = e
             try acc.save()
         } catch {
