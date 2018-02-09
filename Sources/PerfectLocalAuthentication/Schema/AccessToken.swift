@@ -9,8 +9,6 @@
 import StORM
 import MySQLStORM
 import Foundation
-import SwiftRandom
-import SwiftMoment
 
 public class AccessToken: MySQLStORM {
 	public var accesstoken		= ""
@@ -20,7 +18,17 @@ public class AccessToken: MySQLStORM {
 	public var expires			= 0
 	public var scope			= ""
 
-	var _rand = URandom()
+	public static func generate() -> String {
+		if let a = Array<UInt8>(randomCount: 16).encode(.base64),
+			let b = String(bytes: a, encoding: .utf8) {
+			return b.replacingOccurrences(of: "=", with: "")
+			.replacingOccurrences(of: "+", with: "-")
+			.replacingOccurrences(of: "/", with: "_")
+		} else {
+			return ""
+		}
+	}
+
 
 	public static func setup(_ str: String = "") {
 		do {
@@ -38,23 +46,12 @@ public class AccessToken: MySQLStORM {
 
 	public override init(){}
 
-	// no clientid
-	public init(userid u: String, expiration: Int, scope s: [String] = [String]()) {
-		accesstoken = _rand.secureToken
-		refreshtoken = _rand.secureToken
-		userid = u
-		let th = moment()
-		expires = Int(th.epoch()) + (expiration * 1000)
-		scope = s.isEmpty ? "" : s.joined(separator: " ")
-	}
-
-	// with clientid
-	public init(userid u: String, clientid c: String, expiration: Int, scope s: [String] = [String]()) {
-		accesstoken = _rand.secureToken
-		refreshtoken = _rand.secureToken
+	public init(userid u: String, clientid c: String = "", expiration: Int, scope s: [String] = [String]()) {
+		accesstoken = AccessToken.generate()
+		refreshtoken = AccessToken.generate()
 		clientid = c
 		userid = u
-		expires = Int(moment().epoch()) + (expiration * 1000)
+		expires = time(nil) + expiration
 		scope = s.isEmpty ? "" : s.joined(separator: " ")
 	}
 
@@ -79,7 +76,7 @@ public class AccessToken: MySQLStORM {
 	}
 
 	public func isCurrent() -> Bool {
-		if Int(moment().epoch()) > expires { return false }
+		if time(nil) > expires { return false }
 		return true
 	}
 
