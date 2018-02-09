@@ -15,7 +15,6 @@ let package = Package(
 		.Package(url: "https://github.com/SwiftORM/MySQL-StORM.git", majorVersion: 3),
 		.Package(url: "https://github.com/PerfectlySoft/Perfect-Session-MySQL.git", majorVersion: 3),
 		.Package(url: "https://github.com/PerfectlySoft/Perfect-Mustache.git", majorVersion: 3),
-    .Package(url: "https://github.com/PerfectlySoft/Perfect-HTTPServer.git", majorVersion: 3)
-		]
-
+    	.Package(url: "https://github.com/PerfectlySoft/Perfect-HTTP.git", majorVersion: 3)
+	]
 )

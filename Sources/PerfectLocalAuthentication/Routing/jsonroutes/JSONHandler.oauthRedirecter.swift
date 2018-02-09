@@ -6,7 +6,6 @@
 //
 
 import PerfectHTTP
-import PerfectHTTPServer
 
 extension LocalAuthJSONHandlers {
 
